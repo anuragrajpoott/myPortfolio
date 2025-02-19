@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from "../assets/logo.png.jpg"
+import logo from "../assets/logo.png"
 
 const Nav = () => {
   return (
@@ -11,11 +11,13 @@ const Nav = () => {
         </div>
 
         <div>
-            <ul className='flex gap-5'>
+            <ul className='flex gap-5 items-center'>
                 <li>Home</li>
                 <li>About</li>
+                <li>Skills</li>
                 <li>Projects</li>
                 <li>Contact me</li>
+                <li><button className='bg-gray-500 p-2.5 rounded-md'>Resume</button></li>
             </ul>
         </div>
       

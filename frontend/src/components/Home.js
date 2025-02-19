@@ -5,7 +5,7 @@ import {Typewriter} from 'react-simple-typewriter';
 
 const Home = () => {
   return (
-    <div className='flex p-10 '>
+    <div className='flex p-10'>
 
         <div className='flex flex-col ml-20 gap-5 w-[100%]'>
             <p className='text-5xl'>Hey,</p>
