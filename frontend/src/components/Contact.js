@@ -1,5 +1,15 @@
 import React, { useState } from 'react'
 import { FaPhoneVolume } from "react-icons/fa6";
+import {toast} from "react-hot-toast"
+import {apiConnector} from "../services/apiConnecter"
+
+
+
+const BASE_URL = "http://localhost:4000/api/v1"
+
+const authEndPoints = {
+  CONTACT_API : BASE_URL + "/auth/contact"
+}
 
 
 
@@ -22,10 +32,41 @@ const Contact = () => {
   }
 
 
-  const submitHandler = (e) => {
+
+
+  const submitHandler = async (e) => {
     e.preventDefault()
 
-    console.log(formData)
+
+   const toastId = toast.loading("making connection")
+    try {
+      
+  
+      const response = await apiConnector("POST", authEndPoints.CONTACT_API,formData)
+      console.log("Contact API RESPONSE............", response)
+
+      console.log(response.data.success)
+
+      if (!response.data.success) {
+        throw new Error(response.data.message)
+      }
+      
+      toast.success("connection successfull")
+      
+
+  
+    } catch (error) {
+      console.log("contact API ERROR............", error)
+      toast.error("connection unsuccessfull")
+      
+    }
+    toast.dismiss(toastId)
+
+    setFormData({
+      fullName: "",
+    email: "",
+    message: ""
+    })
 
 
 
@@ -51,7 +92,7 @@ const Contact = () => {
 
 
   return (
-    <div className='flex flex-col items-center justify-center gap-10 p-10 bg-gray-500'>
+    <div className='flex flex-col items-center justify-center gap-10 p-10'>
 
       <div className='text-5xl'>Get in  Touch...</div>
 
@@ -70,7 +111,7 @@ const Contact = () => {
 
         <div className='w-1 bg-white h-40 '></div>
 
-        <form onSubmit={submitHandler} className='flex flex-col gap-5 w-80 border-2 p-5'>
+        <form  className='flex flex-col gap-5 w-80 border-2 p-5'>
 
           <label>
             <p>Your Name</p>
@@ -106,7 +147,7 @@ const Contact = () => {
             />
           </label>
 
-          <button type='submit' className='flex items-center justify-center bg-slate-500 rounded-md'>Submit</button>
+          <button onClick={submitHandler} className='flex items-center justify-center bg-slate-500 rounded-md'>Submit</button>
         </form>
       </div>
 
