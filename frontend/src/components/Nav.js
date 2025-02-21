@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import logo from "../assets/logo.png"
+import myResume from "../assets/myResume.pdf"
 
 
 
@@ -26,7 +27,10 @@ const Nav = () => {
             <li onClick={()=>{setActive("skill")}}><a href='#skill' className={`scroll-smooth p-1 ${active === "skill" ? "outline" : ""}`}>Skills</a></li>
             <li onClick={()=>{setActive("project")}}><a href='#project' className={`scroll-smooth p-1 ${active === "project" ? "outline" : ""}`}>Projects</a></li>
             <li onClick={()=>{setActive("contact")}}><a href='#contact' className={`scroll-smooth p-1 ${active === "contact" ? "outline" : ""}`}>contact me</a></li>
-            <li><button className='bg-gray-500 p-2.5 rounded-md'>Resume</button></li>
+            <li><button className='bg-gray-500 p-2.5 rounded-md'><a href={myResume} target="_blank"
+                    rel="noreferrer">
+                    Resume
+                </a></button></li>
           </ul>
         </div>
 

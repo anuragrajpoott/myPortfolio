@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import { FaPhoneVolume } from "react-icons/fa6";
 import {toast} from "react-hot-toast"
 import {apiConnector} from "../services/apiConnecter"
+import { FaGithub } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import { SiGmail } from "react-icons/si";
+
 
 
 
@@ -81,12 +85,16 @@ const Contact = () => {
       title: "+91 7970233595"
     },
     {
-      icon: <FaPhoneVolume />,
-      title: "+91 7970233595"
+      icon: <SiGmail />,
+      title: "anuragrajpoot2468@gmail.com"
     },
     {
-      icon: <FaPhoneVolume />,
-      title: "+91 7970233595"
+      icon: <FaGithub />,
+      title: "https://github.com/anuragrajpoott"
+    },
+    {
+      icon: <FaLinkedin />,
+      title: "https://www.linkedin.com/in/anuragrajpoott"
     },
   ]
 
@@ -98,7 +106,7 @@ const Contact = () => {
 
       <div className='flex gap-20 items-center justify-evenly'>
 
-        <div className='flex flex-col gap-10'>
+        <div className='grid grid-cols-2 grid-rows-2 gap-10'>
           {
             data.map((e, index) => (
               <div className='flex gap-5 bg-black p-5 rounded-md items-center border-2 border-white' key={index}>
