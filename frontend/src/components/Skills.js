@@ -45,7 +45,7 @@ const Skills = () => {
     const percentage = 85;
 
     return (
-        <div className=' flex flex-col justify-center items-center gap-20 p-10'>
+        <div id='skill' className=' flex flex-col justify-center items-center gap-20 p-10'>
 
             <div className='text-5xl'>My Skills</div>
 

@@ -28,7 +28,9 @@ const achievements = [
 
 const About = () => {
   return (
-    <div className='flex flex-col items-center'>
+    <div className='flex flex-col items-center' id='about'>
+
+      <div className='text-5xl m-10'>About me</div>
 
       <div>
         <div className='flex m-10 p-10 gap-10 items-center justify-evenly'>

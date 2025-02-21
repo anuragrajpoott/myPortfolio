@@ -92,7 +92,7 @@ const Contact = () => {
 
 
   return (
-    <div className='flex flex-col items-center justify-center gap-10 p-10'>
+    <div id='contact' className='flex flex-col items-center justify-center gap-10 p-10'>
 
       <div className='text-5xl'>Get in  Touch...</div>
 
