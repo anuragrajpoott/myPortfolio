@@ -27,8 +27,8 @@ const Home = () => {
             <p>I specialize in creating seamless and responsive websites that deliver exceptional user experiences. With a passion for clean code and innovative design, I bring digital ideas to life through web technologies. Whether it's building custom websites, e-commerce solutions, or improving existing platforms, I'm dedicated to crafting the perfect web experience. Explore my portfolio to see how I can help bring your vision to the digital world!</p>
 
             <div className='flex gap-5'>
-            <button className='bg-pink-500 rounded-md p-2.5'>Contact me</button>
-            <button className='border-2 border-pink-500 rounded-md p-2.5'>Latest Works</button>
+            <button className='bg-pink-500 rounded-md p-2.5'><a href='#contact'>Contact me</a></button>
+            <button className='border-2 border-pink-500 rounded-md p-2.5'><a href='#project'>Latest Works</a></button>
             </div>
 
         </div>
