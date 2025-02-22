@@ -9,7 +9,7 @@ import { SiGmail } from "react-icons/si";
 
 
 
-const BASE_URL = "http://localhost:4000/api/v1"
+const BASE_URL = "https://myportfolio-h5ry.onrender.com"
 
 const authEndPoints = {
   CONTACT_API : BASE_URL + "/auth/contact"
