@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import logo from "../assets/logo.png"
-import myResume from "../assets/myResume.pdf"
+import myResume from "../assets/Anurag_Dangi_Software_Engineering_Resume.pdf"
 
 
 
