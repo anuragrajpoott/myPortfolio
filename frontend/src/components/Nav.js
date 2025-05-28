@@ -1,42 +1,50 @@
-import React, { useState } from 'react'
-import logo from "../assets/logo.png"
-import myResume from "../assets/Anurag_Dangi_Software_Engineering_Resume.pdf"
+import React, { useState } from "react";
+import logo from "../assets/logo.png";
 
-
-
+const navItems = [
+  { id: "home", label: "Home", href: "#home" },
+  { id: "about", label: "About", href: "#about" },
+  { id: "skill", label: "Skills", href: "#skill" },
+  { id: "project", label: "Projects", href: "#project" },
+  { id: "contact", label: "Contact Me", href: "#contact" },
+];
 
 const Nav = () => {
-
-  const [active,setActive] = useState("home")
-
-
+  const [active, setActive] = useState("home");
 
   return (
-    <div className='sticky top-0'>
-      <div className='p-10 flex justify-between items-center'>
-
-        <div className='flex gap-2.5 items-center'>
-          <img src={logo} alt={"AR"} className='h-12 rounded-full' />
-          <span>Anurag Rajpoot</span>
+    <nav className="sticky top-0 bg-black z-50 border-b border-gray-700">
+      <div className="container mx-auto flex justify-between items-center p-6">
+        <div className="flex items-center gap-3">
+          <img src={logo} alt="Anurag Rajpoot Logo" className="h-12 w-12 rounded-full" />
+          <span className="text-white font-semibold text-lg select-none">Anurag Rajpoot</span>
         </div>
 
-        <div>
-          <ul className='flex gap-5 items-center'>
-            <li onClick={()=>{setActive("home")}}><a href='#home' className={`scroll-smooth p-1 ${active === "home" ? "outline" : ""}`}>Home</a></li>
-            <li onClick={()=>{setActive("about")}}><a href='#about' className={`scroll-smooth p-1 ${active === "about" ? "outline" : ""}`}>About</a></li>
-            <li onClick={()=>{setActive("skill")}}><a href='#skill' className={`scroll-smooth p-1 ${active === "skill" ? "outline" : ""}`}>Skills</a></li>
-            <li onClick={()=>{setActive("project")}}><a href='#project' className={`scroll-smooth p-1 ${active === "project" ? "outline" : ""}`}>Projects</a></li>
-            <li onClick={()=>{setActive("contact")}}><a href='#contact' className={`scroll-smooth p-1 ${active === "contact" ? "outline" : ""}`}>contact me</a></li>
-            <li><button className='bg-gray-500 p-2.5 rounded-md'><a href={myResume} target="_blank"
-                    rel="noreferrer">
-                    Resume
-                </a></button></li>
-          </ul>
-        </div>
-
+        <ul className="flex items-center gap-8 text-white font-medium">
+          {navItems.map(({ id, label, href }) => (
+            <li key={id}>
+              <a
+                href={href}
+                onClick={() => setActive(id)}
+                className={`relative px-2 py-1 transition-colors duration-300 hover:text-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500 rounded ${
+                  active === id ? "text-pink-500 font-bold" : "text-white"
+                }`}
+                aria-current={active === id ? "page" : undefined}
+              >
+                {label}
+                {active === id && (
+                  <span
+                    className="absolute left-0 bottom-0 w-full h-0.5 bg-pink-500 rounded"
+                    aria-hidden="true"
+                  />
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
-    </div>
-  )
-}
+    </nav>
+  );
+};
 
-export default Nav
+export default Nav;

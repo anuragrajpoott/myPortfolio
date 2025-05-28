@@ -1,166 +1,153 @@
-import React, { useState } from 'react'
-import { FaPhoneVolume } from "react-icons/fa6";
-import {toast} from "react-hot-toast"
-import {apiConnector} from "../services/apiConnecter"
-import { FaGithub } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaPhoneVolume, FaGithub, FaLinkedin } from "react-icons/fa6";
 import { SiGmail } from "react-icons/si";
+import { toast } from "react-hot-toast";
+import { apiConnector } from "../services/apiConnecter";
 
-
-
-
-const BASE_URL = "https://myportfolio-h5ry.onrender.com/api/v1"
+const BASE_URL = "https://myportfolio-h5ry.onrender.com/api/v1";
 
 const authEndPoints = {
-  CONTACT_API : BASE_URL + "/auth/contact"
-}
+  CONTACT_API: BASE_URL + "/auth/contact",
+};
 
-
+const contactData = [
+  {
+    icon: <FaPhoneVolume className="text-pink-500" />,
+    title: "+91 7970233595",
+  },
+  {
+    icon: <SiGmail className="text-pink-500" />,
+    title: "anuragrajpoot2468@gmail.com",
+  },
+  {
+    icon: <FaGithub className="text-pink-500" />,
+    title: "github.com/anuragrajpoott",
+    url: "https://github.com/anuragrajpoott",
+  },
+  {
+    icon: <FaLinkedin className="text-pink-500" />,
+    title: "linkedin.com/in/anuragrajpoott",
+    url: "https://www.linkedin.com/in/anuragrajpoott",
+  },
+];
 
 const Contact = () => {
-
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
-    message: ""
-  })
+    message: "",
+  });
 
-  const { fullName, email, message } = formData
+  const { fullName, email, message } = formData;
 
   const changeHandler = (e) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [e.target.name]: e.target.value,
-
-    }))
-  }
-
-
-
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   const submitHandler = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-
-   const toastId = toast.loading("making connection")
+    const toastId = toast.loading("Sending message...");
     try {
-      
-  
-      const response = await apiConnector("POST", authEndPoints.CONTACT_API,formData)
-      console.log("Contact API RESPONSE............", response)
-
-      console.log(response.data.success)
+      const response = await apiConnector(
+        "POST",
+        authEndPoints.CONTACT_API,
+        formData
+      );
 
       if (!response.data.success) {
-        throw new Error(response.data.message)
+        throw new Error(response.data.message);
       }
-      
-      toast.success("connection successfull")
-      
 
-  
+      toast.success("Message sent successfully!");
+      setFormData({ fullName: "", email: "", message: "" });
     } catch (error) {
-      console.log("contact API ERROR............", error)
-      toast.error("connection unsuccessfull")
-      
+      toast.error("Failed to send message. Please try again.");
     }
-    toast.dismiss(toastId)
-
-    setFormData({
-      fullName: "",
-    email: "",
-    message: ""
-    })
-
-
-
-  }
-
-
-
-
-  const data = [
-    {
-      icon: <FaPhoneVolume />,
-      title: "+91 7970233595"
-    },
-    {
-      icon: <SiGmail />,
-      title: "anuragrajpoot2468@gmail.com"
-    },
-    {
-      icon: <FaGithub />,
-      title: "https://github.com/anuragrajpoott"
-    },
-    {
-      icon: <FaLinkedin />,
-      title: "https://www.linkedin.com/in/anuragrajpoott"
-    },
-  ]
-
+    toast.dismiss(toastId);
+  };
 
   return (
-    <div id='contact' className='flex flex-col items-center justify-center gap-10 p-10'>
+    <section
+      id="contact"
+      className="max-w-5xl mx-auto px-6 py-16 flex flex-col items-center gap-12"
+    >
+      <h2 className="text-5xl font-bold text-center mb-10">Get in Touch...</h2>
 
-      <div className='text-5xl'>Get in  Touch...</div>
-
-      <div className='flex gap-20 items-center justify-evenly'>
-
-        <div className='grid grid-cols-2 grid-rows-2 gap-10'>
-          {
-            data.map((e, index) => (
-              <div className='flex gap-5 bg-black p-5 rounded-md items-center border-2 border-white' key={index}>
-                <div>{e.icon}</div>
-                <div>{e.title}</div>
-              </div>
-            ))
-          }
+      <div className="flex flex-col md:flex-row gap-16 w-full justify-center items-start">
+        {/* Contact Info */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full md:w-1/2">
+          {contactData.map(({ icon, title, url }, idx) => (
+            <a
+              key={idx}
+              href={url || "#"}
+              target={url ? "_blank" : undefined}
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 p-5 border-2 border-pink-500 rounded-md bg-black hover:bg-pink-900 transition-colors duration-300"
+            >
+              <div className="text-3xl">{icon}</div>
+              <span className="text-lg break-all text-white">{title}</span>
+            </a>
+          ))}
         </div>
 
-        <div className='w-1 bg-white h-40 '></div>
+        {/* Divider */}
+        <div className="hidden md:block w-px bg-pink-500 h-56 mx-6"></div>
 
-        <form  className='flex flex-col gap-5 w-80 border-2 p-5'>
-
-          <label>
-            <p>Your Name</p>
+        {/* Contact Form */}
+        <form
+          onSubmit={submitHandler}
+          className="flex flex-col gap-6 w-full max-w-md border-2 border-pink-500 rounded-md p-8 bg-black"
+        >
+          <label className="flex flex-col gap-2">
+            <span className="text-white font-semibold">Your Name</span>
             <input
-              type='text'
-              name='fullName'
+              type="text"
+              name="fullName"
               value={fullName}
               onChange={changeHandler}
-              className='w-full form-style text-black'
+              required
+              placeholder="Enter your full name"
+              className="form-style text-black p-3 rounded"
             />
           </label>
 
-
-          <label>
-            <p>Email</p>
+          <label className="flex flex-col gap-2">
+            <span className="text-white font-semibold">Email</span>
             <input
-              type='text'
-              name='email'
+              type="email"
+              name="email"
               value={email}
               onChange={changeHandler}
-              className='w-full form-style text-black'
+              required
+              placeholder="Enter your email"
+              className="form-style text-black p-3 rounded"
             />
           </label>
 
-          <label>
-            <p>Message</p>
+          <label className="flex flex-col gap-2">
+            <span className="text-white font-semibold">Message</span>
             <textarea
-
-              name='message'
+              name="message"
               value={message}
               onChange={changeHandler}
-              className='w-full form-style text-black'
+              required
+              rows={5}
+              placeholder="Write your message here..."
+              className="form-style text-black p-3 rounded resize-none"
             />
           </label>
 
-          <button onClick={submitHandler} className='flex items-center justify-center bg-slate-500 rounded-md'>Submit</button>
+          <button
+            type="submit"
+            className="bg-pink-500 text-white font-semibold py-3 rounded-md hover:bg-pink-600 transition"
+          >
+            Send Message
+          </button>
         </form>
       </div>
+    </section>
+  );
+};
 
-    </div>
-  )
-}
-
-export default Contact
+export default Contact;

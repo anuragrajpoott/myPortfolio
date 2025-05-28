@@ -1,46 +1,50 @@
-const {contactUsEmail} = require("../mailTemplate/contact")
-const contact = require("../models/contact")
-const {mailSender} = require("../utils/mailSender")
+// server/controllers/contact.js
 
-exports.contact = async (req,res) => {
-    try {
-      const { fullName ,email, message } = req.body
+const Contact = require("../models/contact");
+const { contactUsEmail } = require("../mailTemplate/contact");
+const { mailSender } = require("../utils/mailSender");
 
-      if(!fullName || !email || !message){
-        return res.status(404).json({
-          success:false,
-          message:"fill all details"
-        })
-      }
+exports.contact = async (req, res) => {
+  try {
+    const { fullName, email, message } = req.body;
 
-      const contactDetails = contact.create({fullName,email,message});
-
-      
-
-      const senderResponce = await mailSender(
-        email,
-        "confirmation email",
-        contactUsEmail(fullName,email,  message,)
-      )
-
-      const recieverResponce = await mailSender(
-        "anuragrajpoot2468@gmail.com",
-        "new contact details",
-        `${fullName} with mail Id:${email} contacted you with a message: ${message}`
-
-      )
-
-      return res.json({
-        success: true,
-        message: "contact successfull",
-        senderResponce,
-        recieverResponce
-      })
-    } catch (error) {
-      return res.json({
-        error: error.message,
+    // Validate input
+    if (!fullName || !email || !message) {
+      return res.status(400).json({
         success: false,
-        message: `error while contacting`,
-      })
+        message: "All fields (fullName, email, message) are required.",
+      });
     }
+
+    // Save to DB
+    const contactDetails = await Contact.create({ fullName, email, message });
+
+    // Send confirmation to user
+    const senderResponse = await mailSender(
+      email,
+      "Thanks for contacting me!",
+      contactUsEmail(fullName, email, message)
+    );
+
+    // Notify owner
+    const receiverResponse = await mailSender(
+      "anuragrajpoot2468@gmail.com",
+      "New Contact Message Received",
+      `${fullName} (${email}) sent you a message:\n\n${message}`
+    );
+
+    return res.status(201).json({
+      success: true,
+      message: "Contact form submitted successfully.",
+      contact: contactDetails,
+      senderResponse,
+      receiverResponse,
+    });
+  } catch (error) {
+    console.error("❌ Contact error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong while submitting the contact form.",
+    });
   }
+};

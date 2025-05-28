@@ -1,30 +1,29 @@
+import React from "react";
 import Nav from "./components/Nav";
 import Home from "./components/Home";
 import About from "./components/About";
+import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import Skills from "./components/Skills";
-
 
 function App() {
   return (
-    <div className="bg-black min-h-screen w-screen text-white font-delicious" >
+    <div className="bg-black text-white font-sans min-h-screen flex flex-col">
+      {/* Navigation Bar */}
+      <Nav />
 
-      <Nav/>
+      {/* Main content area */}
+      <main className="flex-grow">
+        <Home />
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+      </main>
 
-      <Home/>
-
-      <About/>
-
-      <Skills/>
-
-      <Projects/>
-
-      <Contact/>
-
-      <Footer/>
-
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

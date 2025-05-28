@@ -1,26 +1,44 @@
-const cookieParser = require("cookie-parser");
-const express = require("express")
-require("dotenv").config()
+// server/index.js
+
+const express = require("express");
+const dotenv = require("dotenv");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const dbConnect = require("./server/configs/database");
-const contact = require("./server/routes/contact")
+const contactRoutes = require("./server/routes/contactRoutes");
 
+dotenv.config();
 
-const app = express()
+const app = express();
+
+// Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-	cors({
-		origin: "*",
-		credentials: true,
-	})
-);
 
-dbConnect()
+// CORS config — better for production
+app.use(cors({
+    origin: process.env.CLIENT_URL || "*", // you can set your frontend URL in .env
+    credentials: true,
+}));
 
-app.use("/api/v1/auth", contact);
+// Connect to DB
+dbConnect();
 
+// Routes
+app.use("/api/v1/contact", contactRoutes);
 
-app.listen(process.env.PORT,()=>{
-    console.log(`app is running at PORT ${process.env.PORT}`)
-})
+// Health check route
+app.get("/", (req, res) => {
+    res.send("Portfolio API is running");
+});
+
+// 404 fallback
+app.use("*", (req, res) => {
+    res.status(404).json({ success: false, message: "Route not found" });
+});
+
+// Start server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+});
