@@ -15,11 +15,11 @@ const projectsData = [
     stack: [mern],
   },
   {
-    github: "https://github.com/anuragrajpoott/myPortfolio",
-    live: "https://study-notion-nine-rho.vercel.app/",
-    title: "Portfolio",
+    github: "https://github.com/anuragrajpoott/mindSpacePlus",
+    live: "https://mind-space-plus.vercel.app/",
+    title: "Mind Space +",
     description:
-      "Created a responsive and interactive personal portfolio website using the MERN stack to showcase my skills, projects, and technical knowledge. Integrated a contact form and dynamic content display, emphasizing a clean user interface and smooth user experience.",
+      "Created a responsive and interactive social media website for depressed peoples using the MERN stack to showcase my skills, projects, and technical knowledge. Integrated dynamic content display, emphasizing a clean user interface and smooth user experience.",
     stack: [mern],
   },
 ];
